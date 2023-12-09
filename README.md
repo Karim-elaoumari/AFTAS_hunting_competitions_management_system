@@ -1,0 +1,1 @@
+# AFTAS_hunting_competitions_management_system
