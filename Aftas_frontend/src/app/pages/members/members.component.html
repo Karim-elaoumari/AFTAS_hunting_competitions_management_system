@@ -1,0 +1,52 @@
+<app-page-loader *ngIf="loading"></app-page-loader> 
+<div class="card mb-4 mt-3">
+    <div class="card-body">
+        <h4 class="card-title mb-3">Members</h4>
+        <div class="row  justify-content-end mb-3">
+            <div class="col-md-5 mt-3 mt-md-0">
+                <input type="text" class="form-control" placeholder="Enter search" [(ngModel)]="search">
+            </div>
+            <div class="col-md-2 mt-3 mt-md-0">
+                <button class="btn btn-primary"(click)="searchMembers(search)" >Search</button>
+            </div>
+        </div>
+        
+        <div class="table-responsive" *ngIf="members.length>0 else nodata">
+          
+                   
+    
+            <table class="display table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>Identity Type</th>
+                        <th>Identity</th>
+                        <th>Nationality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mem of members">
+                        <td>{{mem.number}}</td>
+                        <td>{{mem.first_name}} {{mem.last_name}}</td>
+                        <td>{{mem.identity_document_type}}</td>
+                        <td>{{mem.identity_number}}</td>
+                        <td>{{mem.nationality}}</td>
+                       
+                    </tr>
+                    
+                   
+            </table>
+           
+            <app-pagination [page]="page" [size]="size" [count]="count_members" (pageChange)="getMembers($event)"></app-pagination>
+        </div>
+        <ng-template #nodata>
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No Members
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</div>

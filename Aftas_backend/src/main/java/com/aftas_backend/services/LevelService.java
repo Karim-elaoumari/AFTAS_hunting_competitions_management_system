@@ -13,4 +13,5 @@ public interface LevelService {
     Level findLevelById(Long id);
     List<Level> getAllLevels(Pageable pageable);
     Boolean existsById(Long id);
+    Long countLevels();
 }

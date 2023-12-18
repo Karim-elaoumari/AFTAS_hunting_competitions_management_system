@@ -55,6 +55,11 @@ public class CompetitionController {
         competitionService.deleteCompetition(id);
         return ResponseMessage.ok(null,"Competition deleted successfully");
     }
+    @GetMapping("/count")
+    public ResponseEntity countCompetitions() {
+        Long count = competitionService.countCompetitions();
+        return ResponseMessage.ok(count,"Competitions counted successfully");
+    }
 
 
 }

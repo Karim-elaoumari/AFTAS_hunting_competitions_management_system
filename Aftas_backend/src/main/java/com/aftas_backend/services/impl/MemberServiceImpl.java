@@ -60,6 +60,10 @@ public class MemberServiceImpl implements MemberService {
     public Boolean existsByNumber(Integer number) {
         return memberRepository.existsByNumber(number);
     }
+    @Override
+    public Long countMembers() {
+        return memberRepository.count();
+    }
 
 
 

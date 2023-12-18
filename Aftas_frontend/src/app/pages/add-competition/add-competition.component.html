@@ -1,0 +1,56 @@
+<div class="card mb-4">
+    <app-component-loader *ngIf="competitionLoading==true else competitionShow"></app-component-loader>
+<ng-template #competitionShow>
+    <app-alert
+        [alertType]="alertType"
+        [message]="alertMessage"
+        [showAlert]="showAlert"
+        (onClose)="handleAlertClose()"
+      ></app-alert>
+<div class="card-body mt-3">
+    <div class="card-title">Create New Competition:</div>
+    <form class="needs-validation">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">Location</label>
+                <input type="text" class="form-control" id="validationCustom01" name="location" [(ngModel)]="competition.location" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Date</label>
+                <input type="date" class="form-control" id="validationCustom02" name="date" [(ngModel)]="competition.date" required>
+            </div>
+            <div class="col-md-2 mb-1">
+                <label for="validationCustom02">Start at</label>
+                <input type="time" class="form-control" id="validationCustom02" name="start_time" [(ngModel)]="competition.start_time" required>
+            </div>
+            <div class="col-md-2 mb-1">
+                <label for="validationCustom02">End at</label>
+                <input type="time" class="form-control" id="validationCustom02" name="end_time" [(ngModel)]="competition.end_time"required>
+            </div>
+            
+        </div>
+        <div class="form-row">
+            <div class="col-md-2 mb-1">
+                <label for="validationCustom03">Max Members</label>
+                <input type="number" class="form-control" id="validationCustom03" name="max_participants" [(ngModel)]="competition.max_participants"  required>
+               
+            </div>
+            <div class="col-md-2 mb-1">
+                <label for="validationCustom04">Amount</label>
+                <input type="currency" class="form-control" id="validationCustom04" name="amount" [(ngModel)]="competition.amount" required>
+                <div class="invalid-feedback">
+                    Please provide a valid state.
+                </div>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" [(ngModel)]="competition.description"></textarea>
+        </div>
+        <div align="right"><button class="btn btn-primary" type="submit" (click)="addCompetition()">Create</button></div>
+        
+    </form>
+</div>
+</ng-template>
+</div>

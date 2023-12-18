@@ -32,6 +32,9 @@ public class RankingServiceImpl implements RankingService {
         Member member = memberService.getMemberByNumber(ranking.getMember().getNumber());
         Competition competition = competitionService.getCompetitionById(ranking.getCompetition().getCode());
         Boolean exists = existsByMemberNumberAndCompetitionCode(member.getNumber(),competition.getCode());
+        if(competition.getMaxParticipants()<competition.getRankings().size()+1){
+            throw new OperationException("Competition is full");
+        }
         if(exists==true){
             throw new OperationException("Ranking already exists");
         }
@@ -47,7 +50,7 @@ public class RankingServiceImpl implements RankingService {
         ranking.setMember(member);
         ranking.setCompetition(competition);
         ranking.setScore(0.0);
-        ranking.setRank(competition.getMaxParticipants());
+        ranking.setRank(competition.getRankings().size()+1);
         return rankingRepository.save(ranking);
     }
     @Override
@@ -73,7 +76,8 @@ public class RankingServiceImpl implements RankingService {
         Ranking ranking1 = findRankingByMemberNumberAndCompetitionCode(ranking.getMember().getNumber(),ranking.getCompetition().getCode());
         ranking1.setScore(ranking.getScore());
         ranking1 =  rankingRepository.save(ranking1);
-        return updateAllRankings(ranking1);
+        List<Ranking> rankings = updateAllRankings(ranking1);
+        return rankings.get(rankings.indexOf(ranking1));
     }
     @Override
     public List<Ranking> getAllRankings(Pageable pageable, String search){
@@ -91,14 +95,14 @@ public class RankingServiceImpl implements RankingService {
         return rankingRepository.findAllByCompetitionCodeOrderByScoreDesc(competitionCode,pageable).getContent();
     }
     @Override
-    public Ranking updateAllRankings(Ranking ranking){
+    public List<Ranking> updateAllRankings(Ranking ranking){
         List<Ranking> rankings = rankingRepository.findAllByCompetitionCodeOrderByScoreDesc(ranking.getCompetition().getCode(),Pageable.unpaged()).getContent();
         List<Ranking> rankings1 = new ArrayList<>();
         for (Ranking ranking1 : rankings) {
             ranking1.setRank(rankings.indexOf(ranking1)+1);
             rankings1.add(ranking1);
         }
-        rankings =  rankingRepository.saveAll(rankings1);
-        return rankings.get(rankings.indexOf(ranking));
+        rankingRepository.saveAll(rankings1);
+        return rankings1;
     }
 }

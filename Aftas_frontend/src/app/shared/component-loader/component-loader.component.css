@@ -1,0 +1,31 @@
+
+.overlay {
+    top: 0% !important;
+    left: 0% !important;
+    right: 0% !important;
+    bottom: 0% !important;
+    z-index: 9999 !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .fixed{
+    position: fixed !important;
+  }
+  .absolute{
+    position: absolute !important;
+  }
+  
+  .spinner {
+    z-index: 10000 !important;  /* ensure the spinner appears on top of the overlay */
+  }
+  .spinner-border {
+    width: 3rem !important;
+    height: 3rem !important;
+    margin: auto !important;
+    color: #fff !important; /* sets the color of the spinner */
+  }
+  
+  .spinner-border::after {
+    border-color: #fff !important; /* sets the color of the border */
+  }

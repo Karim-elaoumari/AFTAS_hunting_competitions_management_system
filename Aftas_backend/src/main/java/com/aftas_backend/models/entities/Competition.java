@@ -29,9 +29,9 @@ public class Competition {
     private Double amount;
     private Integer maxParticipants;
     private String description;
-    @OneToMany(mappedBy = "competition",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competition")
     private List<Hunting> huntings;
-    @OneToMany(mappedBy = "competition",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competition")
     private List<Ranking> rankings;
     @CreationTimestamp
     private LocalDateTime createdAt;

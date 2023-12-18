@@ -14,4 +14,5 @@ public interface FishService {
     void deleteFish(Long id);
     Boolean existsByName(String name);
     Boolean existsById(Long id);
+    Long countFishes();
 }

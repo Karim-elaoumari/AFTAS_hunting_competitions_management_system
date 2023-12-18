@@ -54,5 +54,10 @@ public class MemberController {
         memberService.deleteMember(number);
         return ResponseMessage.ok(null,"Member deleted successfully");
     }
+    @GetMapping("/count")
+    public ResponseEntity countMembers() {
+        Long count = memberService.countMembers();
+        return ResponseMessage.ok(count,"Members counted successfully");
+    }
 
 }

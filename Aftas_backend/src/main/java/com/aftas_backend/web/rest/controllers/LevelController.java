@@ -59,5 +59,10 @@ public class LevelController {
 //        levelService.deleteLevelById(id);
 //        return ResponseMessage.ok(null,"Level deleted successfully");
 //    }
+    @GetMapping("/count")
+    public ResponseEntity countLevels(){
+        Long count = levelService.countLevels();
+        return ResponseMessage.ok(count,"Levels counted successfully");
+    }
 
 }

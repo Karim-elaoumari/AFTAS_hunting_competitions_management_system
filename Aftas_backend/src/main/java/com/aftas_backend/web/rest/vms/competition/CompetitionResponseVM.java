@@ -2,6 +2,7 @@ package com.aftas_backend.web.rest.vms.competition;
 
 
 import com.aftas_backend.models.entities.Competition;
+import com.aftas_backend.models.entities.Ranking;
 import com.aftas_backend.web.rest.vms.ranking.RankingResponseComVM;
 import com.aftas_backend.web.rest.vms.ranking.RankingResponseVM;
 
@@ -23,6 +24,18 @@ public record CompetitionResponseVM(
 ) {
     public static CompetitionResponseVM fromCompetition(Competition competition) {
 
+        List<Ranking> rankings = new ArrayList<>();
+        if ( competition.getRankings() != null ) {
+
+        rankings.addAll(competition.getRankings());
+        rankings = rankings.stream()
+                .sorted((r1, r2) -> r1.getRank().compareTo(r2.getRank()))
+                .toList();
+        }
+
+
+
+
         return new CompetitionResponseVM(
                 competition.getCode(),
                 competition.getLocation(),
@@ -32,7 +45,7 @@ public record CompetitionResponseVM(
                 competition.getAmount(),
                 competition.getMaxParticipants(),
                 competition.getDescription(),
-                competition.getRankings() == null ? new ArrayList<>() : competition.getRankings().stream()
+                rankings.stream()
                         .map(RankingResponseComVM::fromRanking)
                         .toList()
         );

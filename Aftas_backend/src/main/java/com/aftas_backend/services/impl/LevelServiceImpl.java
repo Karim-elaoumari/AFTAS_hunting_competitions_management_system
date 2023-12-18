@@ -66,5 +66,9 @@ public class LevelServiceImpl implements LevelService {
         }
         return findLevelById(level.getId());
     }
+    @Override
+    public Long countLevels() {
+        return levelRepository.count();
+    }
 
 }

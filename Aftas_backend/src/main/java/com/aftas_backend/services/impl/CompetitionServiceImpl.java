@@ -13,7 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Timer;
+
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
     private final CompetitionRepository competitionRepository;
@@ -41,6 +44,8 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
     @Override
     public Competition createCompetition(Competition competition) {
+        competition.setStartTime(LocalTime.of(8,00,0));
+        competition.setEndTime(LocalTime.of(18,00,0));
         if(competition.getDate().isBefore(LocalDate.now())){
             throw new OperationException("Competition date cannot be in the past");
         }
@@ -92,6 +97,10 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public Boolean existsById(String code) {
         return competitionRepository.existsById(code);
+    }
+    @Override
+    public Long countCompetitions(){
+        return competitionRepository.count();
     }
 
 

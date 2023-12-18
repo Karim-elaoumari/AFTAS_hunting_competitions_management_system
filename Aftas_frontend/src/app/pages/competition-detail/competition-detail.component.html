@@ -1,0 +1,150 @@
+<app-page-loader *ngIf="loading"></app-page-loader> 
+<div class="card mb-4" >
+    <div class="card-body">
+        <div class="card-title" id="competition">Competition </div>
+        <div class="row" *ngIf="competition.length>0 else existscomptoday">
+            
+            <div class="col-12">
+                <div class="row justify-content-end " style="color: rgb(3, 3, 3);">
+                    <button type="button" class="btn btn-primary btn-rounded ps-3 pe-5 me-4" style="height:33px;margin-right:5px" (click)="showMembersList()" >Add Member</button>
+                </div>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Code</td>
+                            <td class="font-weight-bold text-success">{{competition[0].code}}</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td class="font-weight-bold">{{competition[0].location}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td class="font-weight-bold text-success">{{competition[0].date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Start Time:</td>
+                            <td class="text-warning font-weight-bold">{{competition[0].start_time}}</td>
+                        </tr>
+                        <tr>
+                            <td>End Time:</td>
+                            <td class="font-weight-bold text-success">{{competition[0].end_time}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Members:</td>
+                            <td class="text-warning font-weight-bold">{{competition[0].rankings.length}}</td>
+                            <td *ngIf="competition[0].rankings.length>0">
+                               <table>
+                                <thead class="thead-light">
+                                        <tr>
+                                            <th>Rank</th>
+                                            <th>Number</th>
+                                            <th>Name</th>
+                                            <th>Points</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                      <tr *ngFor="let rank of competition[0].rankings">
+                                        <td>{{rank.rank}}</td>
+                                        <td>{{rank.member.number}}</td>
+                                        <td>{{rank.member.first_name}} {{rank.member.last_name}}</td>
+                                        <td>{{rank.points}}</td>
+                                      </tr>
+                                </tbody>
+
+                               </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Amount:</td>
+                            <td class="font-weight-bold text-success">$ {{competition[0].amount}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description:</td>
+                            <td class="font-weight-bold">{{competition[0].description}}</td>
+                        </tr>
+                       
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <ng-template class="row" #existscomptoday>
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No Competition Found for this code {{competitionId}}
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<div id="addmember">
+<div class="card mb-4 mt-3" *ngIf="showMembers==true" >
+    <app-alert
+        [alertType]="alertType"
+        [message]="alertMessage"
+        [showAlert]="showAlert"
+        (onClose)="handleAlertClose()"
+      ></app-alert>
+      <app-component-loader *ngIf="membersLoading==true else membersShow"></app-component-loader>
+      <ng-template #membersShow>
+    <div class="card-body">
+        <h4 class="card-title mb-3">Add Member To this Competition</h4>
+        <div class="row  justify-content-end mb-3">
+            <div class="col-md-5 mt-3 mt-md-0">
+                <input type="text" class="form-control" placeholder="Enter search" [(ngModel)]="search">
+            </div>
+            <div class="col-md-2 mt-3 mt-md-0">
+                <button class="btn btn-primary"(click)="searchMembers(search)" >Search</button>
+            </div>
+        </div>
+        
+        <div class="table-responsive" *ngIf="members.length>0 else nodata" style="height:400px">
+          
+                   
+    
+            <table class="display table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>Identity Type</th>
+                        <th>Identity</th>
+                        <th>Nationality</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mem of members">
+                        <td>{{mem.number}}</td>
+                        <td>{{mem.first_name}} {{mem.last_name}}</td>
+                        <td>{{mem.identity_document_type}}</td>
+                        <td>{{mem.identity_number}}</td>
+                        <td>{{mem.nationality}}</td>
+                        <td><button type="button" class="btn btn-primary btn-rounded " style="height:33px;" (click)="addMember(mem.number)">Add</button></td>
+                    </tr>
+                    
+                   
+            </table>
+           
+        </div>
+        <ng-template #nodata>
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No Members
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</ng-template>
+</div>
+
+</div>

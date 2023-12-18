@@ -13,4 +13,5 @@ public interface MemberService {
     Member updateMember(Member member,Integer number);
     void deleteMember(Integer number);
     Boolean existsByNumber(Integer number);
+    Long countMembers();
 }

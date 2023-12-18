@@ -59,5 +59,10 @@ public class FishController {
         FishResponseVM fishResponseVM = FishResponseVM.fromFish(fish);
         return ResponseMessage.ok(fishResponseVM,"Fish retrieved successfully");
     }
+    @GetMapping("/count")
+    public ResponseEntity countFishes(){
+        Long count = fishService.countFishes();
+        return ResponseMessage.ok(count,"Fishes counted successfully");
+    }
 
 }

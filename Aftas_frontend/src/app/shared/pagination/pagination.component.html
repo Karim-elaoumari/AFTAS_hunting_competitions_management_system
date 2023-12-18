@@ -1,0 +1,18 @@
+
+
+ <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" *ngIf="page>0"  (click)="onPreviousClick(page-1)" tabindex="-1">Previous</a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" >{{page+1}}</a></li>
+                                    <li class="page-item " *ngIf="size*(page+1)<count">
+                                        <a class="page-link"(click)="onNextClick(page+2)">{{page+2}}</a>
+                                    </li>
+                                    <li class="page-item" *ngIf="size*(page+2)<count">
+                                        <a class="page-link" (click)="onNextClick(page+2)">{{page+3}}</a></li>
+                                    <li class="page-item" *ngIf="size*(page+1)<count">
+                                        <a class="page-link" (click)="onNextClick(page+1)">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>

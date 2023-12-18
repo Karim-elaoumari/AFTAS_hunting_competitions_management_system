@@ -14,5 +14,5 @@ public interface RankingService {
     Ranking findRankingByMemberNumberAndCompetitionCode(Integer number, String competitionCode);
     List<Ranking> getAllRankingsByMemberNumber(Pageable pageable, Integer number);
     List<Ranking> getAllRankingsByCompetitionCode(Pageable pageable, String competitionCode);
-    Ranking updateAllRankings(Ranking ranking);
+    List<Ranking> updateAllRankings(Ranking ranking);
 }

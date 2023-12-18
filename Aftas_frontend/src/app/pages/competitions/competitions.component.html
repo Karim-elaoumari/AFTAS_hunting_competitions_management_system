@@ -1,0 +1,55 @@
+<app-page-loader *ngIf="loading"></app-page-loader> 
+<div class="card mb-4 mt-3">
+    <div class="card-body">
+        <h4 class="card-title mb-3">Competitions</h4>
+        <div class="row  justify-content-end mb-3">
+            <div class="col-md-5 mt-3 mt-md-0">
+                <input type="text" class="form-control" placeholder="Enter search" [(ngModel)]="search">
+            </div>
+            <div class="col-md-2 mt-3 mt-md-0">
+                <button class="btn btn-primary"(click)="searchCompetitions(search)" >Search</button>
+            </div>
+        </div>
+        
+        <div class="table-responsive" *ngIf="competitions.length>0 else nodata">
+          
+                   
+    
+            <table class="display table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Location</th>
+                        <th>date</th>
+                        <th>Time</th>
+                        <th>Amount</th>
+                        <th>Members</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let com of competitions">
+                        <td>{{com.code}}</td>
+                        <td>{{com.location}}</td>
+                        <td>{{com.date}}</td>
+                        <td>{{com.start_time}} until {{com.end_time}} </td>
+                        <td>{{com.amount}}</td>
+                        <td>{{com.rankings.length}}</td>
+                        <td><button type="button" class="btn btn-primary btn-rounded " style="height:33px;" (click)="viewCompetition(com.code)">view</button></td>
+                    </tr>
+                    
+                   
+            </table>
+           
+            <app-pagination [page]="page" [size]="size" [count]="count_competitions" (pageChange)="getCompetitions($event)"></app-pagination>
+        </div>
+        <ng-template #nodata>
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No Competitions
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</div>

@@ -69,5 +69,9 @@ public class FishServiceImpl implements FishService {
         }
         return fishRepository.findByNameContainingOrLevelCodeContainingOrWeightContaining(search,search,search,pageable).getContent();
     }
+    @Override
+    public Long countFishes(){
+        return fishRepository.count();
+    }
 
 }

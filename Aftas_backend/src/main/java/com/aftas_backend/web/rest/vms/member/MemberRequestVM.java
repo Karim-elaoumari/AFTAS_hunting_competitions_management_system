@@ -3,11 +3,12 @@ package com.aftas_backend.web.rest.vms.member;
 import com.aftas_backend.models.entities.Member;
 import com.aftas_backend.models.enums.IdentityDocumentType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record MemberRequestVM(
-        @NotBlank(message = "Number is required")
-        String number,
+        @NotNull(message = "Number is required")
+        Integer number,
         @NotBlank(message = "First name is required")
         String first_name,
         @NotBlank(message = "Last name is required")
