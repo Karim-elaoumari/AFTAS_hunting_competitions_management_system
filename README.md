@@ -47,9 +47,6 @@ Aftas Club in Tiznit aspires to automate the underwater fishing competition mana
 
 - Visit the application to register for competitions, track results, and view the podium.
 
-## Testing
+## API Documentation
 
-To run unit tests for the competition results calculation service, use:
-
-```bash
-./mvnw test
+Explore the API documentation [here](https://documenter.getpostman.com/view/25869249/2s9YknAi82).
