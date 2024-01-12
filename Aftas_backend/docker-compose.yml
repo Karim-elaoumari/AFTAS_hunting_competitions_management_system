@@ -1,0 +1,32 @@
+version: '3'
+services:
+  mysqldb:
+    image: mysql:latest
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aftas
+      MYSQL_USER: aftas
+      MYSQL_PASSWORD: aftas
+    ports:
+      - "3306:3306"
+  aftasbackend:
+    image: aftasbackend:v1
+    container_name: aftasbackend
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - mysqldb
+  aftasfrontend:
+    image: karimelaoumari/aftasfront:v1
+    container_name: aftasfront
+    ports:
+      - "4200:80"
+    depends_on:
+      - aftasbackend

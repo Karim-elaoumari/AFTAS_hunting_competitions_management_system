@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { env } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FishService {
+  private readonly api:string = env.api;
 
   constructor(private http:HttpClient) { }
   public getcount():Observable<any>{
-    return this.http.get<any>("http://localhost:8081/api/v1/fishes/count");
+    return this.http.get<any>(this.api+"/api/v1/fishes/count");
   }
   public getFishes():Observable<any>{
-    return this.http.get<any>("http://localhost:8081/api/v1/fishes");
+    return this.http.get<any>(this.api+"/api/v1/fishes");
   }
 }

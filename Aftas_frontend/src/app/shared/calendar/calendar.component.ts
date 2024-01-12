@@ -5,7 +5,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Calendar } from '@fullcalendar/core';
 import { CompetitionResp } from 'src/app/core/model/CompetitionResp';
-import { forEach } from 'lodash';
 import { co } from '@fullcalendar/core/internal-common';
 import { Router } from '@angular/router';
 
@@ -48,9 +47,15 @@ export class CalendarComponent {
 
   updateEvents() {
      let events: any = [];
-    forEach(this.competitions, (competition) => {
-      events.push({ title: competition.code, date : competition.date,extendedProps: competition});
-    });
+    for(let i=0; i<this.competitions.length;i++){
+      let event = {
+        title: this.competitions[i].code,
+        start: this.competitions[i].date,
+        end: this.competitions[i].date,
+        allDay: true,
+      }
+      events.push(event);
+    }
     this.calendarOptions.events = events;
   }
   handleEventClick(arg: any){

@@ -1,0 +1,10 @@
+services:
+  aftasfront:
+    image: aftasfront:v1
+    container_name: aftasfront
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    # depends_on:
+    #   - aftasback

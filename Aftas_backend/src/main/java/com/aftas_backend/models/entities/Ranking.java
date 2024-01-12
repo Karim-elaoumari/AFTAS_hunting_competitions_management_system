@@ -20,6 +20,7 @@ public class Ranking {
     @EmbeddedId
     @Builder.Default
     private RankId id = new RankId();
+    @Column(name = "rank_number")
     private Integer rank;
     private Double score;
 
