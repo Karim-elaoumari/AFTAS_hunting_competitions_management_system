@@ -2,15 +2,18 @@ package com.aftas_backend.factory.fakers;
 
 import com.aftas_backend.models.entities.Member;
 import com.aftas_backend.models.enums.IdentityDocumentType;
+import com.aftas_backend.models.enums.Roles;
 import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 @Component
 public class MemberFaker {
-        private Faker faker;
-        public MemberFaker() {
-                this.faker = new Faker();
+        private final Faker faker;
+        private final PasswordEncoder passwordEncoder;
+        public MemberFaker(PasswordEncoder passwordEncoder) {
+            this.passwordEncoder = passwordEncoder;
+            this.faker = new Faker();
         }
         public Member makeMember(){
             return Member.builder()
@@ -20,6 +23,8 @@ public class MemberFaker {
                     .nationality(faker.address().country())
                     .identityDocumentType(faker.options().option(IdentityDocumentType.CIN, IdentityDocumentType.PASSPORT, IdentityDocumentType.RESIDENCE_CARD, IdentityDocumentType.PERMIT))
                     .identityNumber(faker.number().digits(8))
+                    .password(passwordEncoder.encode("123456"))
+                    .role(Roles.ADHERENT.name())
                     .build();
 
         }

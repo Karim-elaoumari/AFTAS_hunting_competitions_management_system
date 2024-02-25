@@ -18,12 +18,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/huntings")
-@PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY')")
+
 public class HuntingController {
     private final HuntingService huntingService;
     public HuntingController(HuntingService huntingService) {
         this.huntingService = huntingService;
     }
+    @PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY')")
     @GetMapping("member/{memberNumber}/competition/{competitionCode}")
     public ResponseEntity getHuntingsByMemberNumberAndCompetitionCode(@ParameterObject Pageable pageable, @PathParam("memberNumber") Integer memberNumber, @PathParam("competitionCode") String competitionCode) {
         List<Hunting> huntings = huntingService.getHuntingsByMemberNumberAndCompetitionCode(memberNumber, competitionCode, pageable);
@@ -33,6 +34,7 @@ public class HuntingController {
         }
         return ResponseMessage.ok(huntingResponseVMS, "Huntings retrieved successfully");
     }
+    @PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY') or hasRole('ADHERENT')")
     @GetMapping("competition/{competitionCode}")
     public ResponseEntity getHuntingsByCompetitionCode(@ParameterObject Pageable pageable, @PathParam("competitionCode") String competitionCode) {
         List<Hunting> huntings = huntingService.getHuntingsByCompetitionCode(competitionCode, pageable);
@@ -42,6 +44,7 @@ public class HuntingController {
         }
         return ResponseMessage.ok(huntingResponseVMS, "Huntings retrieved successfully");
     }
+    @PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY') or hasRole('ADHERENT')")
     @GetMapping("member/{memberNumber}")
     public ResponseEntity getHuntingsByMemberNumber(@ParameterObject Pageable pageable, @PathParam("memberNumber") Integer memberNumber) {
         List<Hunting> huntings = huntingService.getHuntingsByMemberNumber(memberNumber, pageable);
@@ -51,6 +54,7 @@ public class HuntingController {
         }
         return ResponseMessage.ok(huntingResponseVMS, "Huntings retrieved successfully");
     }
+    @PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY')")
     @PostMapping
     public ResponseEntity createHunting(@Valid @RequestBody HuntingRequestVM huntingRequestVM) {
         Hunting hunting = huntingService.createHunting(huntingRequestVM.toHuntingDTO());

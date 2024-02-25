@@ -71,7 +71,7 @@
                     
                     <div class="card-body">
                         <div class="card-title row justify-content-between ps-3 pe-3" style="color: rgb(3, 3, 3);"><p class="col-5">Today Competition</p>
-                            <button type="button" class="btn btn-primary btn-rounded col-2" style="height:33px;margin-right:5px" (click)="showAddHunting()" *ngIf="competition.length>0">Add Hunting</button>
+                            <button type="button" class="btn btn-primary btn-rounded col-2" style="height:33px;margin-right:5px" (click)="showAddHunting()" *ngIf="competition.length>0 && user.role!='ADHERENT'">Add Hunting</button>
                         </div>
                         <div class="row" *ngIf="competition.length>0 else existscomptoday">
                             <div class="col-8">

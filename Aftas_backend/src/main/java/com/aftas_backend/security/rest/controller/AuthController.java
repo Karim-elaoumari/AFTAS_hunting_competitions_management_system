@@ -35,8 +35,6 @@ public class AuthController {
     public JwtRefreshTokenResponse getNewAccessToken(HttpServletRequest httpServletRequest) {
         return authenticationService.refresh();
     }
-
-
     //for test
     @GetMapping("/token")
     public JwtAuthenticationResponse testToken(HttpServletRequest httpServletRequest) {

@@ -37,7 +37,7 @@ public class RankingController {
         return ResponseMessage.ok(rankingResponseVMS, "Rankings retrieved successfully");
     }
 
-    @PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY')")
+    @PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY') or hasRole('ADHERENT')")
     @GetMapping("/competition/{code}")
     public ResponseEntity getAllRankingsByCompetition(@ParameterObject Pageable pageable, @PathVariable String code) {
         List<Ranking> rankings = rankingService.getAllRankingsByCompetitionCode(pageable, code);
