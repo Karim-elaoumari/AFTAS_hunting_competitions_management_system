@@ -78,30 +78,33 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.7.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
     </dependencies>
 
-    <profiles>
-        <!-- Development Profile -->
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-                <spring.profiles.active>dev</spring.profiles.active>
-            </properties>
-        </profile>
 
-        <!-- Production Profile -->
-        <profile>
-            <id>prod</id>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-                <spring.profiles.active>prod</spring.profiles.active>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
@@ -109,11 +112,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <environmentVariables>
-                        <SPRING_PROFILES_ACTIVE>
-                            ${spring.profiles.active}
-                        </SPRING_PROFILES_ACTIVE>
-                    </environmentVariables>
                 </configuration>
             </plugin>
         </plugins>

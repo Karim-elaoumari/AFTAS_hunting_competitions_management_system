@@ -47,6 +47,13 @@
                     <label for="validationCustom02">Nationality</label>
                     <input type="text" class="form-control" id="validationCustom02" name="nationality" [(ngModel)]="member.nationality" required>
                 </div>
+                <div class="col-md-2 mb-2" *ngIf="user.role=='MANAGER'">
+                    <label for="validationCustom02">Role</label>
+                    <select class="custom-select"  name="role" [(ngModel)]="memberRole" required>
+                        <option value="ADHERENT" selected>Adherent</option>
+                        <option value="JURY">Jury</option> 
+                    </select>
+                </div>
                 
             </div>
             <div align="right"><button class="btn btn-primary" type="submit" (click)="addMember()">Create</button></div>

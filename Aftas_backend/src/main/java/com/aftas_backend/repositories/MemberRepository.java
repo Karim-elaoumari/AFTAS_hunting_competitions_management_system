@@ -16,11 +16,11 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
             "m.firstName LIKE %:search% OR " +
             "m.lastName LIKE %:search% OR " +
             "CAST(m.number AS string) LIKE %:search%")
-    Page<Member> findAllByFirstNameOrLastNameOrNumbe(
+    Page<Member> findAllByFirstNameOrLastNameOrNumber(
             @Param("search") String search,
             Pageable pageable);
 
     Optional<Member> findByNumber(Integer number);
-    Boolean existsByNumber(Integer number);
 
+    Boolean existsByNumber(Integer number);
 }

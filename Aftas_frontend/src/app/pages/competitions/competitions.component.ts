@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { CompetitionResp } from 'src/app/core/model/CompetitionResp';
 import { CompetitionService } from 'src/app/core/service/competition.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/core/service/TokenStorageService';
 
 @Component({
   selector: 'app-competitions',
@@ -20,7 +20,8 @@ export class CompetitionsComponent {
     constructor(
       private competitionService:CompetitionService,
       private route: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private tokenStorageService:TokenStorageService
       ) { }
   
     ngOnInit(): void {
@@ -34,20 +35,17 @@ export class CompetitionsComponent {
 
     }
     getCompetitions(page:number=0){
-      this.page=page;
-      this.competitionService.getCompetitionsPaginatedSearch(page,this.size,'').subscribe(
-        (data)=>{
-          this.competitions=data.data;
-          this.checkLoadingComplete();
-        },
-        (error:any)=>{
-          console.log(error);
-          this.loading = false;
+      let user  = this.tokenStorageService.getUser();
+      if(user!=null && user!=undefined){
+        if(user.role=='MANAGER' || user.role=='JURY'){
+          this.getAllCompetitions(page);
+        }else{
+          this.getMyCompetitions(page);
         }
-      );
-      this.setQueryInUrl();
+      }
     }
     searchCompetitions(search:string=''){
+      
       this.page=0;
       this.competitionService.getCompetitionsPaginatedSearch(this.page,this.size,search).subscribe(
         (data)=>{
@@ -93,6 +91,34 @@ export class CompetitionsComponent {
       }
       this.router.navigate([], { queryParams: { page: this.page,size:this.size,search:this.search } });
      
+    }
+    getAllCompetitions(page:number){
+      this.page=page;
+      this.competitionService.getCompetitionsPaginatedSearch(page,this.size,'').subscribe(
+        (data)=>{
+          this.competitions=data.data;
+          this.checkLoadingComplete();
+        },
+        (error:any)=>{
+          console.log(error);
+          this.loading = false;
+        }
+      );
+      this.setQueryInUrl();
+    }
+    getMyCompetitions(page:number){
+      this.page=page;
+      this.competitionService.getMyCompetitionsPaginatedSearch(page,this.size,'').subscribe(
+        (data)=>{
+          this.competitions=data.data;
+          this.checkLoadingComplete();
+        },
+        (error:any)=>{
+          console.log(error);
+          this.loading = false;
+        }
+      );
+      this.setQueryInUrl();
     }
 
 

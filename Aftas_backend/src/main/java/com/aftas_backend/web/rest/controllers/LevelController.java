@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/levels")
+@PreAuthorize(value = "hasRole('MANAGER') or hasRole('JURY')")
 public class LevelController {
     private final LevelService levelService;
     public LevelController(LevelService levelService){

@@ -8,7 +8,8 @@ public record MemberResponseVM(
         String last_name,
         String nationality,
         String identity_document_type,
-        String identity_number
+        String identity_number,
+        String password
 ) {
     public static MemberResponseVM fromMember(Member member) {
         return new MemberResponseVM(
@@ -17,7 +18,8 @@ public record MemberResponseVM(
                 member.getLastName(),
                 member.getNationality(),
                 member.getIdentityDocumentType().toString(),
-                member.getIdentityNumber()
+                member.getIdentityNumber(),
+                member.getPassword()
         );
     }
 }

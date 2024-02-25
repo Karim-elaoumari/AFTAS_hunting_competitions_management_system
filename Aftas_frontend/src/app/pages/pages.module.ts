@@ -11,8 +11,9 @@ import { FishesComponent } from './fishes/fishes.component';
 import { AddFishComponent } from './add-fish/add-fish.component';
 import { LevelsComponent } from './levels/levels.component';
 import { AddLevelComponent } from './add-level/add-level.component';
-import { FormsModule, NgModel } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { NoAccessComponent } from './no-access/no-access.component';
 
 
 
@@ -29,6 +30,8 @@ import { ToastrModule } from 'ngx-toastr';
     AddFishComponent,
     LevelsComponent,
     AddLevelComponent,
+    LoginComponent,
+    NoAccessComponent,
   ],
   imports: [
     CommonModule,

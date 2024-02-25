@@ -1,5 +1,6 @@
 package com.aftas_backend.services;
 
+import com.aftas_backend.models.entities.Competition;
 import com.aftas_backend.models.entities.Ranking;
 import org.springframework.data.domain.Pageable;
 
@@ -15,4 +16,8 @@ public interface RankingService {
     List<Ranking> getAllRankingsByMemberNumber(Pageable pageable, Integer number);
     List<Ranking> getAllRankingsByCompetitionCode(Pageable pageable, String competitionCode);
     List<Ranking> updateAllRankings(Ranking ranking);
+
+    List<Competition> getMyCompetitions(Pageable pageable);
+
+    List<Competition> getMyTodayCompetitions(Pageable pageable);
 }

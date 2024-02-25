@@ -3,6 +3,8 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CompetitionResp } from 'src/app/core/model/CompetitionResp';
 import { Member } from 'src/app/core/model/Member';
+import { UserResponseInfo } from 'src/app/core/model/UserResponseInfo';
+import { TokenStorageService } from 'src/app/core/service/TokenStorageService';
 import { CompetitionService } from 'src/app/core/service/competition.service';
 import { MemberService } from 'src/app/core/service/member.service';
 
@@ -12,6 +14,7 @@ import { MemberService } from 'src/app/core/service/member.service';
   styleUrls: ['./competition-detail.component.css']
 })
 export class CompetitionDetailComponent {
+  user:UserResponseInfo = {} as UserResponseInfo;
   membersLoading = false;
   alertType = '';
   alertMessage = '';
@@ -27,27 +30,45 @@ export class CompetitionDetailComponent {
     private route: ActivatedRoute,
     private memberService:MemberService,
     private elementRef: ElementRef,
-     private renderer: Renderer2
+     private renderer: Renderer2,
+     private tokenStorageService:TokenStorageService
   ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.getUserInfo();
       this.competitionId = params['code'];
       this.getCompetition();
+      if(this.user.role=='MANAGER' || this.user.role=='JURY'){
       this.getMembers();
+      }
     }
     );
   }
   getCompetition(){
-    this.competitionService.getCompetition(this.competitionId).subscribe(
-      (data)=>{
-        this.competition.push(data.data);
-        this.checkLoadingComplete();
-      },
-      (error:any)=>{
-        console.log(error);
-        this.loading = false;
-      }
-    );
+    if(this.user.role=='MANAGER' || this.user.role=='JURY'){
+        this.competitionService.getCompetition(this.competitionId).subscribe(
+          (data)=>{
+            this.competition.push(data.data);
+            this.checkLoadingComplete();
+          },
+          (error:any)=>{
+            console.log(error);
+            this.loading = false;
+          }
+        );
+    }else{
+      this.competitionService.getMyCompetitionByCode(this.competitionId).subscribe(
+        (data)=>{
+          this.competition.push(data.data);
+          this.checkLoadingComplete();
+        },
+        (error:any)=>{
+          console.log(error);
+          this.loading = false;
+        }
+      );
+    }
+    
   }
   checkLoadingComplete(){
     if(this.competition.length > 0 ){
@@ -114,5 +135,8 @@ export class CompetitionDetailComponent {
   }
   handleAlertClose(){
     this.showAlert = false;
+  }
+  getUserInfo(){
+    this.user = this.tokenStorageService.getUser();
   }
 }

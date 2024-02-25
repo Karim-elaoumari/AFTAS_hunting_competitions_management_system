@@ -11,13 +11,29 @@ import java.time.LocalTime;
 @Component
 public class CompetitionFaker {
     private Faker faker ;
+    boolean isToday = true;
     private final CompetitionCodeGen competitionCodeGen;
     public CompetitionFaker(CompetitionCodeGen competitionCodeGen) {
         this.competitionCodeGen = competitionCodeGen;
         this.faker = new Faker();
     }
     public Competition makeCompetition(){
-        LocalDate date = LocalDate.now().plusDays(faker.number().randomDigit());
+
+        if (isToday){
+            isToday = false;
+            return Competition.builder()
+                    .code(competitionCodeGen.generateCode("Jakarta",LocalDate.now()))
+                    .amount(faker.number().randomDouble(2, 100, 1000))
+                    .description(faker.lorem().sentence())
+                    .maxParticipants(faker.number().randomDigit())
+                    .location(faker.address().city())
+                    .startTime(LocalDateTime.now().minusHours(4).toLocalTime())
+                    .endTime(LocalDateTime.now().toLocalTime().plusHours(2))
+                    .date(LocalDate.now())
+                    .build();
+        }
+
+        LocalDate date =LocalDate.now().plusDays(faker.number().numberBetween(1, 30));
          LocalTime startTime = date.atStartOfDay().toLocalTime();
          LocalTime endTime = startTime.plusHours(4);
          String location = faker.address().city();
@@ -32,5 +48,7 @@ public class CompetitionFaker {
                 .date(date)
                 .build();
     }
+
+
 
 }

@@ -17,15 +17,15 @@ spring:
   # Database Configuration
   datasource:
     url: jdbc:mysql://localhost:3306/aftas?createDatabaseIfNotExist=true
-    username: root
-    password:
+    username: aftas
+    password: aftas
   jpa:
     show-sql: true
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
       ddl-auto: create
-
-
-
+jwt:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
 
 

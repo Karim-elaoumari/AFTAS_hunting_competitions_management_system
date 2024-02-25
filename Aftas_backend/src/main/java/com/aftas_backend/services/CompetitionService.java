@@ -15,5 +15,4 @@ public interface CompetitionService {
     void deleteCompetition(String id);
     Boolean existsById(String id);
     Long countCompetitions();
-
 }

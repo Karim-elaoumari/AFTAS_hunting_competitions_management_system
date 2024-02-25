@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Member } from 'src/app/core/model/Member';
+import { UserResponseInfo } from 'src/app/core/model/UserResponseInfo';
+import { TokenStorageService } from 'src/app/core/service/TokenStorageService';
 import { MemberService } from 'src/app/core/service/member.service';
 
 @Component({
@@ -12,14 +14,18 @@ export class AddMemberComponent {
     alertType: string = '';
     alertMessage: string = '';
     showAlert: boolean = false;
+    user:UserResponseInfo = {} as UserResponseInfo;
+    memberRole: string = '';
     member: Member= {} as Member;
     constructor(
       private memberService:MemberService,
+      private tokenStorageService:TokenStorageService
     ) { }
   
     ngOnInit(): void {
+      this.getUserInfo();
     }
-    addMember(){
+    addAdherent(){
       console.log(this.member);
       if(!this.validate()){
         return;
@@ -28,13 +34,40 @@ export class AddMemberComponent {
       this.memberService.addMember(this.member).subscribe(
         (data)=>{
           this.memberLoading = false;
-          this.showAlertMessage("Member created successfully","success");
+          this.showAlertMessage("Member created successfully Password:"+data.data.password,"success");
         },
         (error:any)=>{
           this.memberLoading = false;
           this.showAlertMessage("Error creating member "+error.error.message,"danger");
         }
       );
+    }
+    addMember(){
+      if(this.memberRole=='JURY'){
+        this.addJury();
+      }else{
+        this.addAdherent();
+      }
+    }
+    addJury(){
+      if(!this.validate()){
+        return;
+      }
+      this.memberLoading = true;
+      this.memberService.addJury(this.member).subscribe(
+        (data)=>{
+          this.memberLoading = false;
+          this.showAlertMessage("Jury created successfully Password:"+data.data.password,"success");
+        },
+        (error:any)=>{
+          this.memberLoading = false;
+          this.showAlertMessage("Error creating jury "+error.error.message,"danger");
+        }
+      );
+    }
+
+    getUserInfo(){
+      this.user = this.tokenStorageService.getUser();
     }
     validate(){
       if(this.member.first_name==''

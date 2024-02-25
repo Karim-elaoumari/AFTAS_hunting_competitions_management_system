@@ -3,6 +3,8 @@ package com.aftas_backend.factory.fakers;
 import com.aftas_backend.models.entities.Member;
 import com.aftas_backend.models.enums.IdentityDocumentType;
 import com.github.javafaker.Faker;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 @Component
 public class MemberFaker {

@@ -11,6 +11,8 @@ import { ComponentLoaderComponent } from './component-loader/component-loader.co
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AlertComponent } from './alert/alert.component';
+import { AlertCopyComponent } from './alert copy/alert.component';
+import { Loader1Component } from './loader1/loader1.component';
 
 
 
@@ -24,7 +26,9 @@ import { AlertComponent } from './alert/alert.component';
     PaginationComponent,
     ComponentLoaderComponent,
     CalendarComponent,
-    AlertComponent
+    AlertComponent,
+    AlertCopyComponent,
+    Loader1Component
   ],
   imports: [
     CommonModule,
@@ -40,7 +44,9 @@ import { AlertComponent } from './alert/alert.component';
     PaginationComponent,
     ComponentLoaderComponent,
     CalendarComponent,
-    AlertComponent
+    AlertComponent,
+    AlertCopyComponent,
+    Loader1Component
     
   ]
 })

@@ -11,9 +11,12 @@ services:
     ports:
       - "3306:3306"
   aftasbackend:
-    image: karimelaoumari/aftasbackend:v1
+    image: aftasbackend:v1
     container_name: aftasbackend
     restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8081:8081"
     environment:
