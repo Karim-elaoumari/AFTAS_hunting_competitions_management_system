@@ -6,4 +6,5 @@ export interface Member {
     nationality: string,
     identity_document_type: string,
     identity_number: string
+    is_activated: boolean,
 }

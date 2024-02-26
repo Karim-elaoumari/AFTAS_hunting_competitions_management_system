@@ -46,7 +46,7 @@ export class LoginComponent {
                 (error) => {
                   this.success = '';
                   this.login_loading = false;
-                  this.error = 'Member Not Found OR Password is incorrect';
+                  this.error = 'Member Not Exists OR Password is incorrect OR is Locked';
                 }
               );
           },

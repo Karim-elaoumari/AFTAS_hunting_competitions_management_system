@@ -9,6 +9,7 @@ public record MemberResponseVM(
         String nationality,
         String identity_document_type,
         String identity_number,
+        Boolean is_activated,
         String password
 ) {
     public static MemberResponseVM fromMember(Member member) {
@@ -19,6 +20,7 @@ public record MemberResponseVM(
                 member.getNationality(),
                 member.getIdentityDocumentType().toString(),
                 member.getIdentityNumber(),
+                member.getIsMemberActivated(),
                 member.getPassword()
         );
     }

@@ -5,17 +5,14 @@ import com.aftas_backend.security.common.principal.UserPrincipalService;
 import com.aftas_backend.security.rest.dto.request.LoginRequest;
 import com.aftas_backend.security.rest.dto.response.JwtAuthenticationResponse;
 import com.aftas_backend.security.rest.dto.response.JwtRefreshTokenResponse;
-import com.aftas_backend.security.rest.service.AuthenticationService;
+import com.aftas_backend.security.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Collection;
 
 @RestController

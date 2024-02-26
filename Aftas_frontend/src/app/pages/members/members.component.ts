@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from 'src/app/core/model/Member';
+import { UserResponseInfo } from 'src/app/core/model/UserResponseInfo';
+import { TokenStorageService } from 'src/app/core/service/TokenStorageService';
 import { MemberService } from 'src/app/core/service/member.service';
 
 @Component({
@@ -10,6 +12,7 @@ import { MemberService } from 'src/app/core/service/member.service';
 })
 export class MembersComponent {
     count_members = -1;
+    user:UserResponseInfo = {} as UserResponseInfo;
     loading = true;
     page= 0;
     size= 5;
@@ -20,6 +23,7 @@ export class MembersComponent {
       private route: ActivatedRoute,
       private router: Router,
       private memberService:MemberService,
+      private tokenStorageService:TokenStorageService
     ) { }
   
     ngOnInit(): void {
@@ -27,8 +31,25 @@ export class MembersComponent {
         this.page = +params['page'] || 0;
         this.size = +params['size'] || 5;
       });
+      this.getUserInfo();
       this.getMembers(this.page);
       this.getmembercount();
+    }
+    changeStatus(number:string){
+      this.memberService.activateMember(number).subscribe(
+        (data)=>{
+          this.getMembers(this.page);
+        },
+        (error:any)=>{
+          console.log(error);
+        }
+      );
+    }
+    getButtonStatus(is_activated:boolean){
+      if(is_activated==true){
+        return 'Deactivate';
+      }
+      return 'Activate';
     }
     getMembers(page:number=0){
       this.page=page;
@@ -81,6 +102,9 @@ export class MembersComponent {
         queryParams: { page: this.page, size: this.size, search: this.search },
         queryParamsHandling: 'merge',
       });
+    }
+    getUserInfo(){
+      this.user = this.tokenStorageService.getUser();
     }
 
 }

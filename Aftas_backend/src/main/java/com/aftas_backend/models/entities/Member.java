@@ -3,10 +3,8 @@ package com.aftas_backend.models.entities;
 import com.aftas_backend.models.enums.IdentityDocumentType;
 import com.aftas_backend.models.enums.Roles;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,7 +32,11 @@ public class Member {
     private IdentityDocumentType identityDocumentType;
 
     private String identityNumber;
-
+    @ColumnDefault("false")
+    @Getter
+    @Setter
+    @Column(name = "is_member_activated")
+    private Boolean isMemberActivated;
     private String role;
 
 

@@ -44,6 +44,7 @@ public class MemberServiceImpl implements MemberService {
         String password = generatePassword();
         member.setPassword(passwordEncoder.encode(password));
         member.setRole(adherent.name());
+        member.setIsMemberActivated(true);
         memberRepository.save(member);
         member.setPassword(password);
         return member;
@@ -88,6 +89,12 @@ public class MemberServiceImpl implements MemberService {
     private String generatePassword() {
 //        return "123456";
         return faker.numerify("######");
+    }
+    public Boolean activateMember(Integer number) {
+        Member member = memberRepository.findByNumber(number).orElseThrow(() -> new ResourceNotFoundException("Member not found"));
+        member.setIsMemberActivated(!member.getIsMemberActivated());
+        memberRepository.save(member);
+        return true;
     }
 
 }

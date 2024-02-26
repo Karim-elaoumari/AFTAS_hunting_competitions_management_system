@@ -97,10 +97,15 @@ public class MemberController {
         return ResponseMessage.ok(count, "Members counted successfully");
     }
 
-
     @GetMapping("/me")
     public UserPrincipal getMe() {
         return userPrincipalService.getUserPrincipalFromContextHolder();
+    }
+    @PreAuthorize(value = "hasRole('MANAGER')")
+    @PutMapping("/activate/{number}")
+    public ResponseEntity activateMember(@PathVariable Integer number) {
+        memberService.activateMember(number);
+        return ResponseMessage.ok(null, "Member activated successfully");
     }
 
 

@@ -23,6 +23,7 @@
                         <th>Identity Type</th>
                         <th>Identity</th>
                         <th>Nationality</th>
+                        <th *ngIf="user.role=='MANAGER'">status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,9 @@
                         <td>{{mem.identity_document_type}}</td>
                         <td>{{mem.identity_number}}</td>
                         <td>{{mem.nationality}}</td>
+                        <td *ngIf="user.role=='MANAGER'">
+                            <button class="btn btn-primary" (click)="changeStatus(mem.number)">{{getButtonStatus(mem.is_activated)}}</button>
+                        </td>
                        
                     </tr>
                     

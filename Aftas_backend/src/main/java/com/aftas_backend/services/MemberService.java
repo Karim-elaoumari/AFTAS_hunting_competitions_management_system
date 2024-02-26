@@ -16,5 +16,6 @@ public interface MemberService {
     void deleteMember(Integer number);
     Boolean existsByNumber(Integer number);
     Long countMembers();
+    Boolean activateMember(Integer number);
 
 }

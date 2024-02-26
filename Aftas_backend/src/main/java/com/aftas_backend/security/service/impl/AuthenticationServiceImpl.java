@@ -1,13 +1,12 @@
-package com.aftas_backend.security.rest.service.impl;
+package com.aftas_backend.security.service.impl;
 
 import com.aftas_backend.security.common.jwt.JwtTokenService;
 import com.aftas_backend.security.common.principal.UserPrincipalService;
 import com.aftas_backend.security.rest.dto.request.LoginRequest;
 import com.aftas_backend.security.rest.dto.response.JwtAuthenticationResponse;
 import com.aftas_backend.security.rest.dto.response.JwtRefreshTokenResponse;
-import com.aftas_backend.security.rest.service.AuthenticationService;
+import com.aftas_backend.security.service.AuthenticationService;
 import com.aftas_backend.security.utils.enums.TokenType;
-import com.aftas_backend.services.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -41,9 +41,9 @@ public class MemberSeeder {
                 .nationality(faker.address().country())
                 .identityDocumentType(IdentityDocumentType.CIN)
                 .identityNumber(faker.number().digits(8))
+                .isMemberActivated(true)
                 .build();
     }
-
     private Member getJuryMember() {
         return Member.builder()
                 .number(2)
@@ -54,6 +54,7 @@ public class MemberSeeder {
                 .nationality(faker.address().country())
                 .identityDocumentType(IdentityDocumentType.CIN)
                 .identityNumber(faker.number().digits(8))
+                .isMemberActivated(true)
                 .build();
     }
 

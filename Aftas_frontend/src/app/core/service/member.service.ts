@@ -42,5 +42,8 @@ export class MemberService {
   public addManager(member:any):Observable<any>{
     return this.http.post<any>(this.api+"/api/v1/members/manager",member);
   }
+  public activateMember(number:string):Observable<any>{
+    return this.http.put<any>(this.api+"/api/v1/members/activate/"+number,{});
+  }
 
 }

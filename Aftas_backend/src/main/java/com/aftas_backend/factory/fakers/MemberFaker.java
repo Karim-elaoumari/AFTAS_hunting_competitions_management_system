@@ -25,6 +25,7 @@ public class MemberFaker {
                     .identityNumber(faker.number().digits(8))
                     .password(passwordEncoder.encode("123456"))
                     .role(Roles.ADHERENT.name())
+                    .isMemberActivated(true)
                     .build();
 
         }

@@ -42,7 +42,13 @@ public class UserPrincipal extends Member implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+
+        if(getIsMemberActivated()==null){
+            return false;
+        }
+        else{
+            return getIsMemberActivated() == true;
+        }
     }
 
     @Override
@@ -66,6 +72,7 @@ public class UserPrincipal extends Member implements UserDetails {
         setIdentityDocumentType(member.getIdentityDocumentType());
         setIdentityNumber(member.getIdentityNumber());
         setNationality(member.getNationality());
+        setIsMemberActivated(member.getIsMemberActivated());
     }
 
 
